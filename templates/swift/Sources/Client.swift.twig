@@ -42,7 +42,7 @@ open class Client {
     ///
     open func set{{header.key | caseUcfirst}}(value: String) -> Client {
 
-        self.addHeader(key: "{{header.name}}", value: value)
+        _ = self.addHeader(key: "{{header.name}}", value: value)
         return self
     }
 
@@ -104,7 +104,7 @@ open class Client {
     /// @return Array|String
     /// @throws Exception
     ///
-    func call(method:String, path:String = "", headers:[String: String] = [:], params:[String: Any] = [:]) -> Any {
+    public func call(method:String, path:String = "", headers:[String: String] = [:], params:[String: Any] = [:]) -> Any {
 
         self.headers.merge(headers){(_, new) in new}
         let targetURL:URL = URL(string: self.endpoint + path + (( method == HTTPMethod.get.rawValue && !params.isEmpty ) ? "?" + httpBuildQuery(params: params) : ""))!

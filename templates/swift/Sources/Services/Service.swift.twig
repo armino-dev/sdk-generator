@@ -1,6 +1,6 @@
 
 
-class {{ service.name | caseUcfirst }}: Service
+open class {{ service.name | caseUcfirst }}: Service
 {
 {% for method in service.methods %}
     /**
@@ -17,7 +17,7 @@ class {{ service.name | caseUcfirst }}: Service
      * @return array
      */
 
-    func {{ method.name | caseCamel }}({% for parameter in method.parameters.all %}_{{ parameter.name | caseCamel }}: {{ parameter.type | typeName | raw }}{{ parameter | paramDefault }}{% if not loop.last %}, {% endif %}{% endfor %}) -> Array<Any> {
+    open func {{ method.name | caseCamel }}({% for parameter in method.parameters.all %}_{{ parameter.name | caseCamel }}: {{ parameter.type | typeName | raw }}{{ parameter | paramDefault }}{% if not loop.last %}, {% endif %}{% endfor %}) -> Array<Any> {
         {% if method.parameters.path %}var{% else %}let{% endif %} path: String = "{{ method.path }}"
 
 {% for parameter in method.parameters.path %}
